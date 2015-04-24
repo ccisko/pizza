@@ -407,6 +407,7 @@ var resizePizzas = function(size) {
     switch(size) {
       case "1":
         document.querySelector("#pizzaSize").innerHTML = "Small";
+		
         return;
       case "2":
         document.querySelector("#pizzaSize").innerHTML = "Medium";
@@ -450,10 +451,17 @@ var resizePizzas = function(size) {
 
   // Iterates through pizza elements on the page and changes their widths
   function changePizzaSizes(size) {
-    for (var i = 0; i < document.querySelectorAll(".randomPizzaContainer").length; i++) {
-      var dx = determineDx(document.querySelectorAll(".randomPizzaContainer")[i], size);
-      var newwidth = (document.querySelectorAll(".randomPizzaContainer")[i].offsetWidth + dx) + 'px';
-      document.querySelectorAll(".randomPizzaContainer")[i].style.width = newwidth;
+	  // changes 3-6 . getelementbyclassname faster then queryselectorll..........................  
+    //for (var i = 0; i < document.querySelectorAll(".randomPizzaContainer").length; i++) {
+    //  var dx = determineDx(document.querySelectorAll(".randomPizzaContainer")[i], size);
+   //   var newwidth = (document.querySelectorAll(".randomPizzaContainer")[i].offsetWidth + dx) + 'px';
+    //  document.querySelectorAll(".randomPizzaContainer")[i].style.width = newwidth;
+	for (var i = 0; i < document.getElementsByClassName('randomPizzaContainer').length; i++) {
+	  var dx = determineDx(document.getElementsByClassName('randomPizzaContainer')[i], size);
+      var newwidth = (document.getElementsByClassName('randomPizzaContainer')[i].offsetWidth + dx) + 'px';
+      document.getElementsByClassName('randomPizzaContainer')[i].style.width = newwidth;
+	
+	
     }
   }
 
@@ -498,18 +506,30 @@ function logAverageFrame(times) {   // times is the array of User Timing measure
 // https://www.igvita.com/slides/2012/devtools-tips-and-tricks/jank-demo.html
 
 // Moves the sliding background pizzas based on scroll position
+// no change  before this line 
+
 function updatePositions() {
   frame++;
   window.performance.mark("mark_start_frame");
+  // change 2. stop recalculating times over and over 
+  var phasep1 = (document.body.scrollTop / 1250)
 
-  var items = document.querySelectorAll('.mover');
+   //var items = document.querySelectorAll('.mover');
+   var items = document.getElementsByClassName('mover');
   for (var i = 0; i < items.length; i++) {
-    var phase = Math.sin((document.body.scrollTop / 1250) + (i % 5));
-    items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
+	  
+		 
+   // change 7 calculated phase in arrAY 
+   var phase = Math.sin(phasep1 + (i % 5));
+   // Change 8 use transform to paint faster
+items[i].style.transform = 'translateZ(' + 10 +  'px)';  
+items[i].style.transform = 'translateX(' + (items[i].basicLeft + 100) * phase + 'px)';   
+
+	//items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
   }
 
   // User Timing API to the rescue again. Seriously, it's worth learning.
-  // Super easy to create custom metrics.
+  // Super easy to create custom metrics.(
   window.performance.mark("mark_end_frame");
   window.performance.measure("measure_frame_duration", "mark_start_frame", "mark_end_frame");
   if (frame % 10 === 0) {
@@ -525,7 +545,8 @@ window.addEventListener('scroll', updatePositions);
 document.addEventListener('DOMContentLoaded', function() {
   var cols = 8;
   var s = 256;
-  for (var i = 0; i < 200; i++) {
+  // no need for 200 pizzas only 20 can be on screen at 1 time change 1.
+  for (var i = 0; i < 20; i++) {
     var elem = document.createElement('img');
     elem.className = 'mover';
     elem.src = "images/pizza.png";
