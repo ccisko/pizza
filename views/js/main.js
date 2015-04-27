@@ -282,8 +282,10 @@ function getNoun(y) {
   } 
 }
 
-var adjectives = ["dark", "color", "whimsical", "shiny", "noise", "apocalyptic", "insulting", "praise", "scientific"];  // types of adjectives for pizza titles
-var nouns = ["animals", "everyday", "fantasy", "gross", "horror", "jewelry", "places", "scifi"];                        // types of nouns for pizza titles
+var adjectives = ["dark", "color", "whimsical", "shiny", "noise", "apocalyptic", "insulting", "praise", "scientific"];  
+// types of adjectives for pizza titles
+var nouns = ["animals", "everyday", "fantasy", "gross", "horror", "jewelry", "places", "scifi"];                        
+// types of nouns for pizza titles
 
 // Generates random numbers for getAdj and getNoun functions and returns a new pizza name
 function generator(adj, noun) {
@@ -452,14 +454,13 @@ var resizePizzas = function(size) {
   // Iterates through pizza elements on the page and changes their widths
   function changePizzaSizes(size) {
 	  // changes 3-6 . getelementbyclassname faster then queryselectorll..........................  
-    //for (var i = 0; i < document.querySelectorAll(".randomPizzaContainer").length; i++) {
-    //  var dx = determineDx(document.querySelectorAll(".randomPizzaContainer")[i], size);
-   //   var newwidth = (document.querySelectorAll(".randomPizzaContainer")[i].offsetWidth + dx) + 'px';
-    //  document.querySelectorAll(".randomPizzaContainer")[i].style.width = newwidth;
-	for (var i = 0; i < document.getElementsByClassName('randomPizzaContainer').length; i++) {
-	  var dx = determineDx(document.getElementsByClassName('randomPizzaContainer')[i], size);
-      var newwidth = (document.getElementsByClassName('randomPizzaContainer')[i].offsetWidth + dx) + 'px';
-      document.getElementsByClassName('randomPizzaContainer')[i].style.width = newwidth;
+ // fixing comment #2 on 1st submission get elementbyClassname 3time....
+ var lngth  = document.getElementsByClassName('randomPizzaContainer').length;
+ var pza = document.getElementsByClassName('randomPizzaContainer');
+	for (var i = 0; i < lngth; i++) {
+	  var dx = determineDx(pza[i], size);
+      var newwidth = (pza[i].offsetWidth + dx) + 'px';
+      pza[i].style.width = newwidth;
 	
 	
     }
@@ -506,28 +507,22 @@ function logAverageFrame(times) {   // times is the array of User Timing measure
 // https://www.igvita.com/slides/2012/devtools-tips-and-tricks/jank-demo.html
 
 // Moves the sliding background pizzas based on scroll position
-// no change  before this line 
+
 
 function updatePositions() {
   frame++;
   window.performance.mark("mark_start_frame");
   // change 2. stop recalculating times over and over 
-  var phasep1 = (document.body.scrollTop / 1250)
-
-   //var items = document.querySelectorAll('.mover');
-   var items = document.getElementsByClassName('mover');
+  // fixed missing semiolon
+  var phasep1 = (document.body.scrollTop / 1250);
+  var items = document.getElementsByClassName('mover');
   for (var i = 0; i < items.length; i++) {
-	  
-		 
-   // change 7 calculated phase in arrAY 
-   var phase = Math.sin(phasep1 + (i % 5));
+   // change 7 calculated phase 
+    var phase = Math.sin(phasep1 + (i % 5));
    // Change 8 use transform to paint faster
-items[i].style.transform = 'translateZ(' + 10 +  'px)';  
-items[i].style.transform = 'translateX(' + (items[i].basicLeft + 100) * phase + 'px)';   
-
-	//items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
+    items[i].style.transform = 'translateZ(' + 10 +  'px)';  
+    items[i].style.transform = 'translateX(' + (items[i].basicLeft + 100) * phase + 'px)';   
   }
-
   // User Timing API to the rescue again. Seriously, it's worth learning.
   // Super easy to create custom metrics.(
   window.performance.mark("mark_end_frame");
@@ -539,14 +534,17 @@ items[i].style.transform = 'translateX(' + (items[i].basicLeft + 100) * phase + 
 }
 
 // runs updatePositions on scroll
-window.addEventListener('scroll', updatePositions);
+  window.addEventListener('scroll', updatePositions);
 
 // Generates the sliding pizzas when the page loads.
-document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function() {
   var cols = 8;
   var s = 256;
-  // no need for 200 pizzas only 20 can be on screen at 1 time change 1.
-  for (var i = 0; i < 20; i++) {
+  // change 1. use screen.width to determine number of pizzas update from submission 1
+  var nmbrofpizza = Math.round(screen.width/70) ;
+    
+  // no need for 200 pizzas only 20 can be on screen at 1 time 
+  for (var i = 0; i < nmbrofpizza ; i++) {
     var elem = document.createElement('img');
     elem.className = 'mover';
     elem.src = "images/pizza.png";
