@@ -25,7 +25,11 @@ changes 3-6 . getelementbyclassname faster then queryselectorAll................
 change 7 calculated phase 
 Change 8 use transform to paint faster
 
-
+new ****************8
+change 9 take newpizzasize out of for loop only need to calculate 
+new pizza size once using any pizza id as an example .I choose id=0;
+then after calculation is done once implemet the for loop
+to resize all the pizzas
 
 websites used 
 https://developers.google.com/speed/pagespeed/insights/

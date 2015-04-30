@@ -454,15 +454,13 @@ var resizePizzas = function(size) {
   // Iterates through pizza elements on the page and changes their widths
   function changePizzaSizes(size) {
 	  // changes 3-6 . getelementbyclassname faster then queryselectorll..........................  
- // fixing comment #2 on 1st submission get elementbyClassname 3time....
- var lngth  = document.getElementsByClassName('randomPizzaContainer').length;
- var pza = document.getElementsByClassName('randomPizzaContainer');
-	for (var i = 0; i < lngth; i++) {
-	  var dx = determineDx(pza[i], size);
-      var newwidth = (pza[i].offsetWidth + dx) + 'px';
+      // fixing comment #2 on 1st submission get elementbyClassname 3time....
+    var lngth  = document.getElementsByClassName('randomPizzaContainer').length;
+    var pza = document.getElementsByClassName('randomPizzaContainer');
+    var dx = determineDx(pza[0], size);
+    var newwidth = (pza[0].offsetWidth + dx) + 'px';
+    for (var i = 0; i < lngth; i++) {
       pza[i].style.width = newwidth;
-	
-	
     }
   }
 
