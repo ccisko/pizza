@@ -2,6 +2,8 @@
 checked out the repository, inspected the code,
 
 ### Getting started
+1. to run application open index.html using google chrome . 
+2. click on links to navigate to diffent pages ....
 
 
 ####Part 1: Optimize PageSpeed Insights score for index.html
