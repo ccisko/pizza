@@ -539,7 +539,7 @@ function updatePositions() {
   var cols = 8;
   var s = 256;
   // change 1. use screen.width to determine number of pizzas update from submission 1
-  var nmbrofpizza = Math.round(screen.width/70) ;
+  var nmbrofpizza = Math.round(screen.width/50) ;
     
   // no need for 200 pizzas only 20 can be on screen at 1 time 
   for (var i = 0; i < nmbrofpizza ; i++) {
