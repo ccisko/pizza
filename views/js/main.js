@@ -453,8 +453,8 @@ var resizePizzas = function(size) {
 
   // Iterates through pizza elements on the page and changes their widths
   function changePizzaSizes(size) {
-	  // changes 3-6 . getelementbyclassname faster then queryselectorll..........................  
-      // fixing comment #2 on 1st submission get elementbyClassname 3time....
+	  // changes 3-6 . getelementbyclassname faster then queryselectorAll
+  
     var lngth  = document.getElementsByClassName('randomPizzaContainer').length;
     var pza = document.getElementsByClassName('randomPizzaContainer');
     var dx = determineDx(pza[0], size);
@@ -511,8 +511,7 @@ function updatePositions() {
   frame++;
   window.performance.mark("mark_start_frame");
   // change 2. stop recalculating times over and over 
-  // fixed missing semiolon
-  var phasep1 = (document.body.scrollTop / 1250);
+    var phasep1 = (document.body.scrollTop / 1250);
   var items = document.getElementsByClassName('mover');
   for (var i = 0; i < items.length; i++) {
    // change 7 calculated phase 
@@ -541,7 +540,7 @@ function updatePositions() {
   // change 1. use screen.width to determine number of pizzas update from submission 1
   var nmbrofpizza = Math.round(screen.width/50) ;
     
-  // no need for 200 pizzas only 20 can be on screen at 1 time 
+  // change 9 no need for 200 pizzas calculate # of pizzas based on screen resolution line542
   for (var i = 0; i < nmbrofpizza ; i++) {
     var elem = document.createElement('img');
     elem.className = 'mover';
